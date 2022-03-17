@@ -1,9 +1,11 @@
-package com.mb.api.mb_wallet_api.user;
+package com.mb.api.mb_wallet_api.userWallet;
 
 import java.math.BigDecimal;
 
-public class UserBalance {
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+public class UserBalance {
+	@JsonIgnore
 	private Integer userID;
 	private BigDecimal currentBalance;
 	private String currency;
@@ -38,6 +40,10 @@ public class UserBalance {
 	}
 	public void setCurrency(String currency) {
 		this.currency = currency;
+	}
+	@Override
+	public String toString() {
+		return "UserBalance [userID=" + userID + ", currentBalance=" + currentBalance + ", currency=" + currency + "]";
 	}
 	
 	
