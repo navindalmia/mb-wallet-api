@@ -1,6 +1,7 @@
 package com.mb.api.mb_wallet_api.userWallet;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -81,6 +82,15 @@ public class UserWalletDaoServiceImpl implements UserWalletDaoService{
 		
 		
 		System.out.println(userTransactionsMap);
+	}
+
+
+	public List getUserTransactionList(Integer userId) {
+		// TODO Auto-generated method stub
+		List userTransactionsList=userTransactionsMap.get(userId);
+		
+		
+		return userTransactionsList;
 	}
 
 }

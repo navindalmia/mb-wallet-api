@@ -52,26 +52,16 @@ public class App {
 
 				}))).path("balance", ctx -> ctx.byMethod(action -> action.get(() -> {
 					Promise<UserBalance> userBalancePromise = Promise.value(this.getBalance(ctx));
-//					Promise<UserBalance> userBalancePromise =  Promise.async(ctx).blockingMap(this.getBalance(ctx));
 					userBalancePromise.then(balance -> respondWithBalance(ctx, balance));
 
 				})))
 						.path("spend", ctx -> ctx.byMethod(action -> action.post(() -> {
-						//Reading JSON from request body
-						 String json = ctx.getRequest().getBody().toString();
-						 //Converting into object
-//						 ObjectMapper mapper = new ObjectMapper();
-//						 UserTransaction newtransaction1 = mapper.readValue(json, UserTransaction.class);
-//						 System.out.println("newtransaction1"+newtransaction1);
-						 
+					
 						 Promise<UserTransaction> userTransactionPromise= ctx.parse(UserTransaction.class)
 					        .onError(error -> ctx.getResponse().status(500)
 					                .send(error.getMessage()))
 								 ;
-//						 userTransactionPromise.blockingMap(this.insertTransaction(ctx));
-//						 Promise<UserTransaction> userTransactionPromise = Promise.value(this.insertTransaction(ctx));
-//						 userTransactionPromise.map(this.insertTransaction(ctx)).then(newtransaction -> respondWith20x(ctx, "Transaction Updated"));
-						 userTransactionPromise.then(
+						 	userTransactionPromise.then(
 								 userTransaction -> {
 									 System.out.println("here userTransaction:"+userTransaction);
 									 this.insertTransaction(ctx,userTransaction);
@@ -79,15 +69,37 @@ public class App {
 								 
 								 }
 								 );
-//
+
+						})))
+						.path("transactions", ctx -> ctx.byMethod(action -> action.get(() -> {
+							Promise<List> userTransactionPromise = Promise.value(this.getUserTransactionList(ctx));
+							userTransactionPromise.then(userTransactionList -> respondWithTransactions(ctx, userTransactionList));
+
 						})))
 						
 						));
 
 	}
-//	private Transaction mapJsonInputToTransaction(Context ctx) {
-//		return null;
-//	}
+
+	private void respondWithTransactions(Context ctx, List userTransactionList) {
+		System.out.println("list reurned:"+userTransactionList);
+		if (null!=userTransactionList &&  userTransactionList.size() > 0) {
+			ctx.getResponse().status(200);
+			ctx.render(Jackson.json(userTransactionList));
+		} else {
+
+//			ctx.render(Jackson.json(userTransactionList));
+			respondWith40x(ctx, 404, "Transactions not available!");
+		}
+	}
+
+	private List getUserTransactionList(Context ctx) {
+		
+		String userId = validateAndGetUserIdFromToken(ctx);
+		List userTransactionList=objUserWalletDaoService.getUserTransactionList(Integer.valueOf(userId));
+		
+		return userTransactionList;
+	}
 
 	private void insertTransaction(Context ctx,UserTransaction userTransaction) throws JsonParseException, JsonMappingException, IOException {
 		// TODO Auto-generated method stub
@@ -175,7 +187,7 @@ public class App {
 			ctx.render(Jackson.json(balance));
 		} else {
 
-			ctx.render(Jackson.json(balance));
+//			ctx.render(Jackson.json(balance));
 			respondWith40x(ctx, 404, "Balance not available!");
 		}
 	}

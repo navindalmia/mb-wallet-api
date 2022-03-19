@@ -3,7 +3,10 @@ package com.mb.api.mb_wallet_api.userWallet;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class UserTransaction {
+//	@JsonIgnore
 private Integer userId;	
 private Date date;
 private String description;
