@@ -1,13 +1,12 @@
 package com.mb.api.mb_wallet_api.userWallet;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.mb.api.mb_wallet_api.user.User;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class UserWalletDaoServiceImpl implements UserWalletDaoService{
 
-	private static List<UserBalance> userBalances = new ArrayList();
+//	private static List<UserBalance> userBalances = new ArrayList();
+	private static CopyOnWriteArrayList<UserBalance> userBalances
+    = new CopyOnWriteArrayList<UserBalance>();
 
 	@Override
 	public UserBalance getBalanceForUserID(Integer userId) {

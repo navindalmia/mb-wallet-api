@@ -2,13 +2,18 @@ package com.mb.api.mb_wallet_api.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import com.mb.api.mb_wallet_api.userWallet.UserBalance;
 
 import ratpack.func.Block;
 import ratpack.handling.Context;
 import ratpack.server.PublicAddress;
 
 public class UserDaoServiceImpl implements UserDaoService {
-	private static List<User> users = new ArrayList();
+//	private static List<User> users = new ArrayList();
+	private static CopyOnWriteArrayList<User> users
+    = new CopyOnWriteArrayList<User>();
 
 	private static int userCount = 0;
 
