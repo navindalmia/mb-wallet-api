@@ -3,11 +3,13 @@ package com.mb.api.mb_wallet_api.userWallet;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class UserTransaction {
 //	@JsonIgnore
 private Integer userId;	
+
+@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
 private Date date;
 private String description;
 private BigDecimal amount;
