@@ -17,12 +17,26 @@ public class UserBalance {
 	 * @param currentBalance
 	 * @param currency
 	 */
+	
 	public UserBalance(Integer userID) {
 		super();
 		this.userID = userID;
 		this.currentBalance = new BigDecimal(99999999); // to be fetched from Properties file
 		this.currency = "GBP"; // to be fetched from Properties file
 	}
+	
+	/**
+	 * @param userID
+	 * @param currentBalance
+	 * @param currency
+	 */
+	public UserBalance(Integer userID, BigDecimal currentBalance, String currency) {
+		super();
+		this.userID = userID;
+		this.currentBalance = currentBalance;
+		this.currency = currency;
+	}
+
 	public Integer getUserID() {
 		return userID;
 	}
