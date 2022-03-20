@@ -4,11 +4,14 @@ import java.util.List;
 
 public interface UserWalletDaoService {
 
-	
-	public UserBalance getBalanceForUserID(Integer userId) ;
-	public void createBalanceForUserID(Integer userId) ;
+	public UserBalance getBalanceForUserID(Integer userId);
+
+	public void createBalanceForUserID(Integer userId);
+
 	void createTransactionForUserID(UserTransaction userTransaction);
+
 	void updateBalanceForUserID(UserTransaction userTransaction);
-	List getUserTransactionList(Integer userId);
-	
+
+	List<UserTransaction> getUserTransactionList(Integer userId);
+
 }

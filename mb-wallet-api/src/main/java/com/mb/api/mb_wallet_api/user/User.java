@@ -8,7 +8,7 @@ public class User implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -4733991939051820742L;
-	
+
 	private Integer userId;
 	private String token;
 
@@ -20,6 +20,7 @@ public class User implements Serializable {
 		super();
 
 	}
+
 	public User(Integer userId) {
 		super();
 		this.userId = userId;
@@ -32,8 +33,6 @@ public class User implements Serializable {
 	public void setToken(String token) {
 		this.token = token;
 	}
-
-	
 
 	public Integer getUserId() {
 		return userId;

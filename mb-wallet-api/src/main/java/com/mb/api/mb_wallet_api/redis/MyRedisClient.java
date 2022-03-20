@@ -9,7 +9,7 @@ import org.redisson.config.Config;
 
 
 public final class MyRedisClient {
-    private static volatile RedissonClient redisson = null;
+    private static  RedissonClient redisson = null;
 
     private MyRedisClient() {}
     
