@@ -1,10 +1,15 @@
 package com.mb.api.mb_wallet_api.userWallet;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class UserBalance {
+public class UserBalance implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8716480332204692544L;
 	@JsonIgnore
 	private Integer userID;
 	private BigDecimal currentBalance;

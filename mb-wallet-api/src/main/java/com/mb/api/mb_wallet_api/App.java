@@ -3,20 +3,18 @@ package com.mb.api.mb_wallet_api;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import org.json.simple.JSONObject;
 
 import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mb.api.mb_wallet_api.user.UserDaoService;
-import com.mb.api.mb_wallet_api.user.UserDaoServiceImpl;
+import com.mb.api.mb_wallet_api.user.UserDaoServiceImplRed;
 import com.mb.api.mb_wallet_api.user.UserTokenGenerator;
 import com.mb.api.mb_wallet_api.userWallet.UserBalance;
 import com.mb.api.mb_wallet_api.userWallet.UserTransaction;
-import com.mb.api.mb_wallet_api.userWallet.UserWalletDaoServiceImpl;
+import com.mb.api.mb_wallet_api.userWallet.UserWalletDaoService;
+import com.mb.api.mb_wallet_api.userWallet.UserWalletDaoServiceImplRed;
 
 import io.netty.handler.codec.http.HttpHeaderNames;
 import ratpack.exec.Promise;
@@ -26,12 +24,13 @@ import ratpack.server.PublicAddress;
 import ratpack.server.RatpackServer;
 
 public class App {
-	UserDaoService objUserDaoService = new UserDaoServiceImpl();
-	UserWalletDaoServiceImpl objUserWalletDaoService = new UserWalletDaoServiceImpl();
+	UserDaoService objUserDaoService = new UserDaoServiceImplRed();
+	UserWalletDaoService objUserWalletDaoService = new UserWalletDaoServiceImplRed();
 	UserTokenGenerator utg = new UserTokenGenerator();
 
 	public static void main(String[] args) throws Exception {
 
+        
 		new App().runServer();
 
 	}

@@ -1,7 +1,13 @@
 package com.mb.api.mb_wallet_api.user;
 
-public class User {
+import java.io.Serializable;
 
+public class User implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4577307804491517982L;
 	private Integer userId;
 
 	/**

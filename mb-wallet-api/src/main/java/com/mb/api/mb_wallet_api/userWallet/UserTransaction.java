@@ -1,11 +1,17 @@
 package com.mb.api.mb_wallet_api.userWallet;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class UserTransaction {
+public class UserTransaction implements Serializable{
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6298815492179376021L;
+
 //	@JsonIgnore
 private Integer userId;	
 

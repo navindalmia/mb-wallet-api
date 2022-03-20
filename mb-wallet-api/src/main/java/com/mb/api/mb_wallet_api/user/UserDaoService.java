@@ -6,7 +6,7 @@ import ratpack.handling.Context;
 public interface UserDaoService {
 	
 	public String save();
-	public void findOne(Integer id);
+//	public void findOne(Integer id);
 
 
 }

@@ -6,27 +6,24 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class UserWalletDaoServiceImpl implements UserWalletDaoService{
+import org.redisson.api.RMap;
+import org.redisson.api.RedissonClient;
 
-//	private static List<UserBalance> userBalances = new ArrayList();
-//	private static CopyOnWriteArrayList<UserBalance> userBalances
-//    = new CopyOnWriteArrayList<UserBalance>();
-//	private static CopyOnWriteArrayList<UserTransaction> userTransactions
-//    = new CopyOnWriteArrayList<UserTransaction>();
-	private static Map<Integer,UserBalance> userBalances
-  = new ConcurrentHashMap<Integer,UserBalance>();
-	private static Map<Integer,CopyOnWriteArrayList<UserTransaction>> userTransactionsMap
-	  = new ConcurrentHashMap<Integer,CopyOnWriteArrayList<UserTransaction>>();
+import com.mb.api.mb_wallet_api.redis.MyRedisClient;
+import com.mb.api.mb_wallet_api.user.User;
 
-	//WOrking
-//	@Override
-//	public UserBalance getBalanceForUserID(Integer userId) {
-//		// TODO Auto-generated method stub
-//
-//		UserBalance balance = userBalances
-//				.stream().filter(x -> x.getUserID() == userId).findFirst().get();
-//		return balance;
-//	}
+public class UserWalletDaoServiceImplRed implements UserWalletDaoService{
+
+
+//	private static Map<Integer,UserBalance> userBalances
+//  = new ConcurrentHashMap<Integer,UserBalance>();
+//	private static Map<Integer,CopyOnWriteArrayList<UserTransaction>> userTransactionsMap
+//	  = new ConcurrentHashMap<Integer,CopyOnWriteArrayList<UserTransaction>>();
+	
+	RedissonClient redisson = MyRedisClient.getRedisClient();
+	RMap<Integer,UserBalance> userBalances = redisson.getMap("userBalanceMap");
+	RMap<Integer,CopyOnWriteArrayList<UserTransaction>> userTransactionsMap
+	= redisson.getMap("userTransactionsMap");
 	
 	@Override
 	public UserBalance getBalanceForUserID(Integer userId) {
@@ -40,11 +37,13 @@ public class UserWalletDaoServiceImpl implements UserWalletDaoService{
 	@Override
 	public void createBalanceForUserID(Integer userId) {
 		// TODO Auto-generated method stub
+	
+		
 		UserBalance userBalance=	new UserBalance( userId);
 		userBalances.put(userId,userBalance);
 		System.out.println(userBalances);
 	}
-	@Override
+	
 	public void updateBalanceForUserID(UserTransaction userTransaction) {
 		// TODO Auto-generated method stub
 		while(true) {
@@ -84,7 +83,7 @@ public class UserWalletDaoServiceImpl implements UserWalletDaoService{
 		System.out.println(userTransactionsMap);
 	}
 
-@Override
+
 	public List getUserTransactionList(Integer userId) {
 		// TODO Auto-generated method stub
 		List userTransactionsList=userTransactionsMap.get(userId);

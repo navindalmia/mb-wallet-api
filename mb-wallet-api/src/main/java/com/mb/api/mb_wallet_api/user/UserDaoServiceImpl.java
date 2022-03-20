@@ -19,15 +19,15 @@ public class UserDaoServiceImpl implements UserDaoService {
 
 	
 	
-
-	@Override
-	public void findOne(Integer id) {
-		// TODO Auto-generated method stub
-
-		User user = users.stream().filter(x -> x.getUserId() == id).findFirst().get();
-		System.out.println("User found" + user);
-
-	}
+//
+//	@Override
+//	public void findOne(Integer id) {
+//		// TODO Auto-generated method stub
+//
+//		User user = users.stream().filter(x -> x.getUserId() == id).findFirst().get();
+//		System.out.println("User found" + user);
+//
+//	}
 
 
 	@Override
