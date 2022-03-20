@@ -1,12 +1,15 @@
 package com.mb.api.mb_wallet_api.userWallet;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
 
+import com.mb.api.mb_wallet_api.error.ErrorMessage;
 import com.mb.api.mb_wallet_api.redis.MyRedisClient;
 
 public class UserWalletDaoServiceImplRed implements UserWalletDaoService {
@@ -31,7 +34,7 @@ public class UserWalletDaoServiceImplRed implements UserWalletDaoService {
 		userBalances.put(userId, userBalance);
 		//System.out.println(userBalances);
 	}
-
+@Override
 	public void updateBalanceForUserID(UserTransaction userTransaction) {
 		// TODO Auto-generated method stub
 		while (true) {
@@ -51,8 +54,16 @@ public class UserWalletDaoServiceImplRed implements UserWalletDaoService {
 	}
 
 	@Override
-	public void createTransactionForUserID(UserTransaction userTransaction) {
+	public Map createTransactionForUserID(UserTransaction userTransaction) {
 		// TODO Auto-generated method stub
+		Map outMap = new HashMap();
+//		System.out.println("amount:"+userTransaction.getAmount());
+		if(null == userTransaction.getAmount() ) {
+			outMap.put("errMessage",new ErrorMessage("400","Invalid Amount!"));
+			
+//			System.out.println("insiden outMap:"+outMap);
+			return outMap;
+		}
 		CopyOnWriteArrayList<UserTransaction> userTransactionsList = userTransactionsMap
 				.get(userTransaction.getUserId());
 		if (userTransactionsList == null) {
@@ -66,6 +77,7 @@ public class UserWalletDaoServiceImplRed implements UserWalletDaoService {
 		}
 
 		//System.out.println(userTransactionsMap);
+		return outMap;
 	}
 
 	public List<UserTransaction> getUserTransactionList(Integer userId) {

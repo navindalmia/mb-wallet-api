@@ -3,6 +3,7 @@ package com.mb.api.mb_wallet_api;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.json.simple.JSONObject;
 
@@ -26,6 +27,7 @@ import ratpack.server.RatpackServer;
 
 public class App {
 	UserDaoService objUserDaoService = new UserDaoServiceImplRed();
+
 	UserWalletDaoService objUserWalletDaoService = new UserWalletDaoServiceImplRed();
 	UserTokenGenerator utg = new UserTokenGenerator();
 
@@ -84,7 +86,14 @@ public class App {
 		String userId = validateAndGetUserIdFromToken(ctx);
 		userTransaction.setUserId(Integer.valueOf(userId));
 		//System.out.println("newtransaction:" + userTransaction);
-		objUserWalletDaoService.createTransactionForUserID(userTransaction);
+		Map out = objUserWalletDaoService.createTransactionForUserID(userTransaction);
+		if (null!=out  && out.containsKey("errMessage")) {
+			//System.out.println("before calling 400:" + out);
+			ErrorMessage errorMessage = (ErrorMessage) out.get("errMessage");
+			respondWith40x( ctx, 400,errorMessage.getErrorMessage());
+			
+		}
+		
 		objUserWalletDaoService.updateBalanceForUserID(userTransaction);
 
 	}
@@ -160,6 +169,7 @@ public class App {
 		ErrorMessage errorMessage = new ErrorMessage(String.valueOf(statusCode),msg);
 
 		ctx.getResponse().status(statusCode);
+		//System.out.println("inside respondWith401");
 		ctx.render(Jackson.json(errorMessage));
 
 	}

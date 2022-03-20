@@ -2,6 +2,10 @@ package com.mb.api.mb_wallet_api.error;
 
 public class ErrorMessage {
 
+	@Override
+	public String toString() {
+		return "ErrorMessage [errorCode=" + errorCode + ", errorMessage=" + errorMessage + "]";
+	}
 	private String errorCode ;
 	private String errorMessage;
 	

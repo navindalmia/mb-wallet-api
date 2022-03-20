@@ -1,6 +1,9 @@
 package com.mb.api.mb_wallet_api.userWallet;
 
 import java.util.List;
+import java.util.Map;
+
+import com.mb.api.mb_wallet_api.error.ErrorMessage;
 
 public interface UserWalletDaoService {
 
@@ -8,9 +11,11 @@ public interface UserWalletDaoService {
 
 	public void createBalanceForUserID(Integer userId);
 
-	void createTransactionForUserID(UserTransaction userTransaction);
+	Map createTransactionForUserID(UserTransaction userTransaction);
 
 	void updateBalanceForUserID(UserTransaction userTransaction);
+	
+	
 
 	List<UserTransaction> getUserTransactionList(Integer userId);
 
