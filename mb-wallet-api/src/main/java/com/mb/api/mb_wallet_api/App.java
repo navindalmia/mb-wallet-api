@@ -46,9 +46,8 @@ public class App {
 				}))).path("spend", ctx -> ctx.byMethod(action -> action.post(() -> {
 					Promise<UserTransaction> userTransactionPromise = ctx.parse(UserTransaction.class)
 							.onError(error -> respondWith40x( ctx, 400, error.getMessage()));
-//							.onError(error -> ctx.getResponse().status(400).send(error.getMessage()));
 					userTransactionPromise.then(userTransaction -> {
-						System.out.println("here userTransaction:" + userTransaction);
+						//System.out.println("here userTransaction:" + userTransaction);
 						this.insertTransaction(ctx, userTransaction);
 						respondWith20x(ctx, "message", "Transaction Updated");
 					});
@@ -61,7 +60,7 @@ public class App {
 	}
 
 	private void respondWithTransactions(Context ctx, List<UserTransaction> userTransactionList) {
-		System.out.println("list returned:" + userTransactionList);
+		//System.out.println("list returned:" + userTransactionList);
 		if (null != userTransactionList && userTransactionList.size() > 0) {
 			ctx.getResponse().status(200);
 			ctx.render(Jackson.json(userTransactionList));
@@ -84,7 +83,7 @@ public class App {
 		// TODO Auto-generated method stub
 		String userId = validateAndGetUserIdFromToken(ctx);
 		userTransaction.setUserId(Integer.valueOf(userId));
-		System.out.println("newtransaction:" + userTransaction);
+		//System.out.println("newtransaction:" + userTransaction);
 		objUserWalletDaoService.createTransactionForUserID(userTransaction);
 		objUserWalletDaoService.updateBalanceForUserID(userTransaction);
 
@@ -112,12 +111,12 @@ public class App {
 		} else {
 			token = ctx.getRequest().getHeaders().get(HttpHeaderNames.AUTHORIZATION);
 		}
-		System.out.println("after fetching token" + token);
+		//System.out.println("after fetching token" + token);
 		if (token == null || "".equals(token))
 			respondWith40x(ctx, 401, "Invalid token!");
 
 		Integer userId = objUserDaoService.getUserIdFromToken(token);
-		System.out.println("after fetching userID" + userId);
+		//System.out.println("after fetching userID" + userId);
 		if (userId == null)
 			respondWith40x(ctx, 401, "Invalid token!");
 		return String.valueOf(userId);
@@ -128,7 +127,7 @@ public class App {
 		String userId = validateAndGetUserIdFromToken(ctx);
 
 		UserBalance balance = objUserWalletDaoService.getBalanceForUserID(Integer.valueOf(userId));
-		System.out.println("after fetching balance" + balance);
+		//System.out.println("after fetching balance" + balance);
 		return balance;
 	}
 
@@ -144,7 +143,7 @@ public class App {
 
 	private void respondWith20x(Context ctx, String key, String token) {
 //		PublicAddress url = ctx.get(PublicAddress.class);
-		System.out.println("inside respondWith20x");
+		//System.out.println("inside respondWith20x");
 
 		JSONObject obj = new JSONObject();
 		obj.put(key, token);
@@ -155,7 +154,7 @@ public class App {
 
 	private void respondWith40x(Context ctx, int statusCode, String msg) {
 //		PublicAddress url = ctx.get(PublicAddress.class);
-		System.out.println("inside respondWith401");
+		//System.out.println("inside respondWith401");
 
 		
 		ErrorMessage errorMessage = new ErrorMessage(String.valueOf(statusCode),msg);

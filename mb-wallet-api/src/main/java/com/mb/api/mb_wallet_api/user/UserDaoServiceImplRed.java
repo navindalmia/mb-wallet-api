@@ -23,15 +23,15 @@ public class UserDaoServiceImplRed implements UserDaoService {
 
 			if (user.getUserId() == null) {
 				user.setUserId(++userCount);
-				System.out.println("User created" + user);
+				//System.out.println("User created" + user);
 			}
 
 			String token = utg.generateUserToken(String.valueOf(userCount));
 			user.setToken(token);
 
-			System.out.println("before adding User created users:" + users);
+			//System.out.println("before adding User created users:" + users);
 			users.add(user);
-			System.out.println("after User created users:" + users);
+			//System.out.println("after User created users:" + users);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -44,11 +44,11 @@ public class UserDaoServiceImplRed implements UserDaoService {
 		// TODO Auto-generated method stub
 		User user=null;
 		try {
-		System.out.println("inside getUserIdFromToken" + token);
+		//System.out.println("inside getUserIdFromToken" + token);
 		 user = users.stream().filter(us -> (us.getToken() != null && us.getToken().equals(token))).findAny().get();
-		System.out.println("after getUserIdFromToken user" + user);
+		//System.out.println("after getUserIdFromToken user" + user);
 		Integer userId = (user != null) ? user.getUserId() : null;
-		System.out.println("after getUserIdFromToken userId" + userId);
+		//System.out.println("after getUserIdFromToken userId" + userId);
 		
 		}
 		catch(NoSuchElementException e1) {

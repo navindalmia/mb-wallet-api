@@ -17,7 +17,7 @@ public final class MyRedisClient {
     	try {
 			config = Config.fromJSON(new File("src\\main\\java\\com\\mb\\api\\mb_wallet_api\\resources\\singleNodeConfig.json"));
 			redisson = Redisson.create(config);
-			 System.out.println("creating redisson:"+redisson);
+			 //System.out.println("creating redisson:"+redisson);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

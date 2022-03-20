@@ -13,10 +13,10 @@ public class UserTokenGenerator {
 
 //	private static final int EXPIRY_DAYS = 90;
 	public String generateUserToken(String userId) {
-//		System.out.println("Inside User Token generator!");
+//		//System.out.println("Inside User Token generator!");
 
 		String jws = Jwts.builder().setSubject(userId).signWith(key).compact();
-//		System.out.println("Hello World! jws:" + jws);
+//		//System.out.println(" jws:" + jws);
 		return jws;
 	}
 
@@ -24,14 +24,13 @@ public class UserTokenGenerator {
 
 		String userId = null;
 		try {
-			System.out.println("key:" + key);
+			//System.out.println("key:" + key);
 			userId = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject();
 
-			System.out.println(
-					Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject());
+			//System.out.println(					Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject());
 
 		} catch (JwtException e) {
-			System.out.println("Hack World! jws:" + e.getMessage());
+			//System.out.println("Hack World! jws:" + e.getMessage());
 
 		}
 

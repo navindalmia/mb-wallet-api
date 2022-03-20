@@ -29,7 +29,7 @@ public class UserWalletDaoServiceImplRed implements UserWalletDaoService {
 
 		UserBalance userBalance = new UserBalance(userId);
 		userBalances.put(userId, userBalance);
-		System.out.println(userBalances);
+		//System.out.println(userBalances);
 	}
 
 	public void updateBalanceForUserID(UserTransaction userTransaction) {
@@ -46,7 +46,7 @@ public class UserWalletDaoServiceImplRed implements UserWalletDaoService {
 
 			}
 
-			System.out.println(userBalances);
+			//System.out.println(userBalances);
 		}
 	}
 
@@ -65,7 +65,7 @@ public class UserWalletDaoServiceImplRed implements UserWalletDaoService {
 			userTransactionsMap.put(userTransaction.getUserId(), userTransactionsList);
 		}
 
-		System.out.println(userTransactionsMap);
+		//System.out.println(userTransactionsMap);
 	}
 
 	public List<UserTransaction> getUserTransactionList(Integer userId) {
