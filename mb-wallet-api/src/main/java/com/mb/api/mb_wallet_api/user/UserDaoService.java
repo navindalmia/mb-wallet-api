@@ -5,8 +5,9 @@ import ratpack.handling.Context;
 
 public interface UserDaoService {
 	
-	public String save();
+	public User save();
 //	public void findOne(Integer id);
 
+	public Integer getUserIdFromToken(String token);
 
 }

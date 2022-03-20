@@ -31,7 +31,7 @@ public class UserDaoServiceImpl implements UserDaoService {
 
 
 	@Override
-	public String save() {
+	public User save() {
 		// TODO Auto-generated method stub
 		User user = new User();
 		if (user.getUserId() == null) {
@@ -40,8 +40,16 @@ public class UserDaoServiceImpl implements UserDaoService {
 		}
 		users.add(user);
 		
-		return String.valueOf(userCount);
-//		return user;
+//		return String.valueOf(userCount);
+		return user;
+	}
+
+
+
+	@Override
+	public Integer getUserIdFromToken(String token) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

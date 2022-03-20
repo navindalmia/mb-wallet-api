@@ -7,8 +7,10 @@ public class User implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -4577307804491517982L;
+	private static final long serialVersionUID = -4733991939051820742L;
+	
 	private Integer userId;
+	private String token;
 
 	/**
 	 * @param userId
@@ -18,11 +20,20 @@ public class User implements Serializable {
 		super();
 
 	}
-
 	public User(Integer userId) {
 		super();
 		this.userId = userId;
 	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	
 
 	public Integer getUserId() {
 		return userId;
@@ -34,7 +45,7 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + "]";
+		return "User [userId=" + userId + ", token=" + token + "]";
 	}
 
 }

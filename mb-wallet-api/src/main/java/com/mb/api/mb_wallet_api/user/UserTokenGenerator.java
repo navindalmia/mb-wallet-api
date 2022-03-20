@@ -24,7 +24,7 @@ public class UserTokenGenerator {
 
 		String userId = null;
 		try {
-
+System.out.println("key:"+key);
 			userId = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody().getSubject();
 
 			System.out.println(

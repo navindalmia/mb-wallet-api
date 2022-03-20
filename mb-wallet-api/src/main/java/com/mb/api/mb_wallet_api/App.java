@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.mb.api.mb_wallet_api.user.User;
 import com.mb.api.mb_wallet_api.user.UserDaoService;
 import com.mb.api.mb_wallet_api.user.UserDaoServiceImplRed;
 import com.mb.api.mb_wallet_api.user.UserTokenGenerator;
@@ -115,11 +116,13 @@ public class App {
 	}
 
 	private String createUser(Context ctx) {
-		String userId = objUserDaoService.save(); // creating user Id
-		objUserWalletDaoService.createBalanceForUserID(Integer.valueOf(userId)); // Initialising balance
+		User user = objUserDaoService.save();
+		Integer userId = user.getUserId();// creating user Id
+		objUserWalletDaoService.createBalanceForUserID(userId); // Initialising balance
 
-		String token = utg.generateUserToken(userId);
-		return token;
+//		String token = utg.generateUserToken(userId);
+
+		return user.getToken();
 
 	}
 //Working	
@@ -164,11 +167,12 @@ public class App {
 		if (token == null || "".equals(token))
 			respondWith40x(ctx, 401, "Invalid token!");
 
-		String userId = utg.parseUserIdFromInputToken(token);
+//		String userId = utg.parseUserIdFromInputToken(token);
+		Integer userId = objUserDaoService.getUserIdFromToken(token);
 		System.out.println("after fetching userID" + userId);
 		if (userId == null)
 			respondWith40x(ctx, 401, "Invalid token!");
-		return userId;
+		return String.valueOf(userId);
 	}
 
 	private UserBalance getBalance(Context ctx) {
