@@ -1,7 +1,7 @@
 1.How long did you spend on the coding test? What would you add to your solution if you spent more time on it? 
 If you didn't spend much time on the coding test then use this as an opportunity to explain what you would add.
 
-Ans. I spent approximately 20-25 hours.
+Ans. I spent approximately 20-25 hours. This includes time involved to understand basic nuances of Ratpack and Redis as I have never used them before.
 I would have added further input validations; logging of requests for analysis and error resolution if spent more time.
 
 2. What was the most useful feature that was added to Java 8? Please include a snippet of code that shows how you've used it.
