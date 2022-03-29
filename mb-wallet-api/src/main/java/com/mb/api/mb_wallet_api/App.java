@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.mb.api.mb_wallet_api.error.ErrorMessage;
+import com.mb.api.mb_wallet_api.handler.LoginHandler;
 import com.mb.api.mb_wallet_api.user.User;
 import com.mb.api.mb_wallet_api.user.UserDaoService;
 import com.mb.api.mb_wallet_api.user.UserDaoServiceImplRed;
@@ -39,10 +40,16 @@ public class App {
 
 	private void runServer() throws Exception {
 		RatpackServer.start(serverDefinition -> serverDefinition
-				.handlers(handler -> handler.path("login", ctx -> ctx.byMethod(action -> action.post(() -> {
-					Promise<String> userPromise = Promise.value(this.createUser(ctx));
-					userPromise.then(token -> respondWith20x(ctx, "token", token));
-				}))).path("balance", ctx -> ctx.byMethod(action -> action.get(() -> {
+				.handlers(handler -> handler.path("login", ctx -> ctx.byMethod(action -> 
+				action.post( new LoginHandler())
+				//or below code both works
+//				action.post(() -> {
+//					Promise<String> userPromise = Promise.value(this.createUser(ctx));
+//					userPromise.then(token -> respondWith20x(ctx, "token", token));
+					
+//				}
+//				)
+						)).path("balance", ctx -> ctx.byMethod(action -> action.get(() -> {
 					Promise<UserBalance> userBalancePromise = Promise.value(this.getBalance(ctx));
 					userBalancePromise.then(balance -> respondWithBalance(ctx, balance));
 				}))).path("spend", ctx -> ctx.byMethod(action -> action.post(() -> {
